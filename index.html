@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>국가유산관련법령 모의고사</title>
+    <!-- 구글 폰트 추가 -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- 부트스트랩 CSS 추가 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 부트스트랩 JS 및 제이쿼리 추가 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+        * {
+            font-family: "Gowun Dodum", sans-serif;
+            color: black;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            font-size: 17px;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 30px;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            height: 60px;
+            /* 세로 폭 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border: 2px solid #6c6b6b;
+            background-color: #f5f5f5;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            /* 타이틀 글자 크기 */
+            margin: 0;
+        }
+
+        .header h3 {
+            font-size: 20px;
+            /* 부제목 글자 크기 */
+            margin: 0;
+        }
+
+        .problem-answer-area {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .problem-area {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #b9b9b9;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+
+        }
+
+        /* 중앙 구분선 */
+        .problem-area::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            /* 외곽 경계선 상단에 맞춤 */
+            bottom: 0;
+            /* 외곽 경계선 하단에 맞춤 */
+            left: 50%;
+            /* 중앙 위치 */
+            width: 1px;
+            /* 경계선 너비 */
+            height: 100%;
+            background-color: rgb(173, 171, 171);
+        }
+
+        .left-column,
+        .right-column {
+            width: calc(50% - 0.5px);
+            /* 중앙 경계선 너비(1px)를 고려하여 나누기 */
+            box-sizing: border-box;
+            /* 패딩과 보더를 포함한 크기 계산 */
+            border: none;
+        }
+
+        .left-column,
+        .right-column {
+            overflow: hidden;
+            /* 넘치는 콘텐츠 숨기기 */
+        }
+
+        .left-column .question {
+            width: auto;
+            /* 요소 크기를 내용에 맞게 설정 */
+            text-align: left;
+            /* 텍스트를 왼쪽으로 정렬 */
+            padding: 12px;
+            /* 기본 패딩 제거 */
+            margin-left: -5px;
+            /* 위치를 외곽선 쪽으로 이동 */
+            box-sizing: border-box;
+            margin-top: 10px;
+            /* 좌우 문제칸에 상단 외곽경계선과의 간격 10px 추가 */
+            padding-left: 20px;
+            /* 좌우 동일한 간격 */
+
+            box-sizing: border-box;
+        }
+
+        .left-column .choice-button {
+            margin-left: 0;
+            /* 써클넘버를 더 왼쪽으로 이동 */
+        }
+
+        .right-column .question {
+            text-align: left;
+            /* 텍스트를 왼쪽으로 정렬 */
+            padding-left: 20px;
+            /* 중앙 구분선 쪽으로 정렬 */
+            margin-top: 10px;
+            /* 좌우 문제칸에 상단 외곽경계선과의 간격 10px 추가 */
+            padding: 12px;
+            /* 좌우 동일한 간격 */
+
+            box-sizing: border-box;
+        }
+
+        .right-column .choice-button {
+            margin-left: 0px;
+            /* 써클넘버를 중앙 구분선 쪽으로 이동 */
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        /* 질문 텍스트 줄바꿈 설정 */
+        .question p {
+            margin: 10;
+            text-indent: -0.7em;
+            /* 질문 번호 바로 아래에서 시작되지 않도록 */
+            padding-left: 1em;
+            /* 첫 줄 이후 줄 시작을 동일하게 맞춤 */
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+
+        .choice {
+            margin-bottom: 12px;
+
+            display: flex;
+            /* 써클 넘버와 텍스트를 한 줄에 배치 */
+            align-items: flex-start;
+            /* 텍스트와 써클 넘버를 수직으로 정렬 */
+            gap: 15px;
+            /* 써클 넘버와 텍스트 간의 간격 */
+        }
+
+        .choice-button {
+            width: 20px;
+            /* 써클 크기 */
+            height: 24px;
+            /* 써클 크기 */
+            line-height: 30px;
+            /* 텍스트를 중앙에 정렬 */
+            border-radius: 50%;
+            /* 완전한 원 형태 */
+            border: none;
+            /* 테두리 */
+            background-color: transparent;
+            /* 배경색 */
+            padding-left: 17px;
+            /* 여백 제거 */
+            margin: 0;
+            /* 외부 여백 제거 */
+            display: inline-flex;
+            /* 내부 콘텐츠 정렬 */
+            justify-content: center;
+            /* 수평 정렬 */
+            align-items: center;
+            /* 수직 정렬 */
+            cursor: default;
+            /* 클릭 가능한 손 모양 커서 */
+            position: relative;
+            /* 위치 조정을 위한 설정 */
+        }
+
+        .choice-button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .answer-sheet {
+            width: 14%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        .answer-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            width: 4.5cm;
+            height: 1cm;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        .confirm-button {
+            width: 1.3cm;
+            /* 버튼 너비 */
+            height: 1cm;
+            /* 버튼 높이 */
+            border: 1px solid #ddd;
+            background-color: lightgray;
+            border-radius: 3px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 14px;
+            /* 글자 크기 설정 */
+        }
+
+        .confirm-button:hover {
+            background-color: #ccc;
+            /* 호버 시 색상 */
+        }
+
+        .question-number {
+            width: 1cm;
+            text-align: center;
+            font-weight: bold;
+            border-right: 1px solid #ccc;
+        }
+
+        .circle-number {
+            width: 20px;
+            /* 써클넘버 크기 */
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            border-radius: 50%;
+            /* 원형 */
+            border: none;
+            cursor: default;
+            padding: 0;
+            /* 여백 없음 */
+            margin: 0 3px;
+            /* 간격만 유지 */
+            box-sizing: border-box;
+            /* 박스 크기 계산 */
+        }
+
+        .circle-number:hover {
+            background-color: transparent;
+            /* 호버 효과 제거 */
+        }
+
+        .circle-number.selected {
+            background-color: lightblue;
+            border-color: blue;
+        }
+
+        .circle-number.correct {
+            background-color: rgba(0, 0, 255, 0.6);
+            color: white;
+            /* 텍스트 색상 */
+            border-color: 1px solid rgba(0, 0, 255, 0.6);
+        }
+
+        .circle-number.incorrect {
+            background-color: rgba(255, 0, 0, 0.6);
+            color: white;
+            /* 텍스트 색상 */
+            border-color: 1px solid rgba(255, 0, 0, 0.6);
+        }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            /* 초기 상태는 숨김 */
+            position: fixed;
+            /* 화면 중앙에 고정 */
+            z-index: 1000;
+            /* 가장 위에 표시 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* 화면 중앙 정렬 */
+            width: 60%;
+            /* 모달 가로 크기: 화면의 60% */
+            height: auto;
+            /* 높이는 내용에 맞게 */
+            max-width: 600px;
+            /* 최대 가로 크기 제한 */
+            aspect-ratio: 5 / 3;
+            /* 5:3 비율 */
+            background-color: white;
+            /* 배경색 */
+            border: 1px solid #ccc;
+            /* 테두리 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* 그림자 효과 */
+            border-radius: 8px;
+            /* 둥근 테두리 */
+            overflow: hidden;
+            /* 내용이 넘치지 않도록 */
+        }
+
+        .modal-content {
+            padding: 20px;
+            /* 내부 여백 */
+            text-align: left;
+            /* 텍스트 정렬 */
+            box-shadow: none !important;
+            /* 모달 전체 그림자 제거 */
+            border: none !important;
+            /* 모달 테두리 제거 */
+        }
+
+        .modal-header {
+            font-size: 20px;
+            /* 제목 크기 */
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            /* 구분선 */
+            padding-bottom: 10px;
+        }
+
+        .modal-body {
+            margin-top: 10px;
+            line-height: 1.5;
+            /* 줄 간격 */
+            border-top: none;
+        }
+
+        @keyframes highlight {
+
+            0%,
+            100% {
+                background-color: transparent;
+                color: black;
+            }
+
+            50% {
+                background-color: yellow;
+                color: red;
+            }
+        }
+
+        #clapAnimation {
+            animation: highlight 2s infinite;
+            /* 2초마다 애니메이션 반복 */
+            font-size: 18px !important;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #000;
+            border-radius: 10px;
+            background-color: white;
+        }
+
+        #homepageButton {
+            display: inline-block;
+            width: 4cm;
+            height: 1cm;
+            line-height: 1cm;
+            text-align: center;
+            text-decoration: none;
+            /* 링크 밑줄 제거 */
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #afcff5;
+            /* 기본 색상 (파란색) */
+            border-radius: 2px;
+            /* 둥근 모서리 */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            /* 버튼 그림자 */
+            transition: background-color 0.3s, transform 0.2s;
+            /* 애니메이션 효과 */
+        }
+
+        #homepageButton:hover {
+            background-color: #0056b3;
+            /* 호버 시 어두운 파란색 */
+            transform: translateY(-2px);
+            /* 버튼이 살짝 올라가는 효과 */
+        }
+
+        /* 타이머 박스 전체 */
+        .timer-container {
+            width: 4.5cm;
+            height: 2cm;
+            border: 1px solid black;
+            /* 테두리 선 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            box-sizing: border-box;
+            margin: 10px 0;
+        }
+
+        /* 버튼들이 위치할 왼쪽 영역 */
+        .timer-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 50%;
+            border-right: 1px solid black;
+            /* 좌우 구분선 */
+            padding-right: 5px;
+        }
+
+        /* 버튼 스타일 */
+        .timer-button {
+            width: 100%;
+            height: 0.8cm;
+            /* 버튼 높이 */
+            margin: 2px 0;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* 타이머가 위치할 오른쪽 영역 */
+        .timer-right {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 타이머 스타일 */
+        .timer-display {
+            font-size: 23px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 2cm;
+        }
+    </style>
+    <script>
+
+        // 모든 선택지에 클릭 이벤트 추가
+        document.querySelectorAll('.choice-button').forEach(button => {
+            button.addEventListener('click', function () {
+                const questionElement = this.closest('.question'); // 클릭된 문제 영역
+                const questionNumber = questionElement.dataset.question; // 문제 번호
+                const choiceNumber = this.dataset.choice; // 선택 번호
+
+                // 모든 선택지의 `selected` 클래스 제거
+                questionElement.querySelectorAll('.choice-button').forEach(choice => {
+                    choice.classList.remove('selected');
+                });
+
+                // 현재 클릭된 선택지에 `selected` 클래스 추가
+                this.classList.add('selected');
+
+                // 답안지의 박스 찾기
+                const answerBox = document.querySelector(`.answer-box[data-answer="${questionNumber}"]`);
+                if (answerBox) {
+                    // 기존 선택 초기화
+                    answerBox.querySelectorAll('.circle-number').forEach(circle => {
+                        circle.classList.remove('selected', 'correct', 'incorrect');
+                    });
+
+                    // 선택한 써클넘버
+                    const selectedCircle = answerBox.querySelector(`.circle-number[data-choice="${choiceNumber}"]`);
+
+                    if (selectedCircle) {
+                        selectedCircle.classList.add('selected'); // 선택 활성화
+
+                        // 정답 여부 확인
+                        if (correctAnswers[questionNumber] == choiceNumber) {
+                            selectedCircle.classList.add('correct'); // 정답 표시
+                        } else {
+                            selectedCircle.classList.add('incorrect'); // 오답 표시
+                        }
+                    }
+                }
+            });
+        });
+
+        function openAnswerModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'block';
+            } else {
+                console.error(`Modal with id "${modalId}" not found.`);
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+            } else {
+                console.error(`Modal with id "${modalId}" not found.`);
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>국가유산관련법령 예비 모의고사</h1>
+            <h3>2024년 제 2 회</h3>
+        </div>
+        <div class="problem-answer-area">
+            <!-- 문제 영역 -->
+            <div class="problem-area">
+                <div class="left-column">
+                    <div class="question" data-question="1">
+                        <p>1. 국가유산기본법령상 국가유산의 정의에 관한 설명으로 옳지 않은 것은?</p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span>“국가유산”이란 인위적이거나 자연적으로 형성된 국가적ㆍ민족적 또는
+                                세계적 유산을 말한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> “문화유산”이란 우리 역사와 전통의 산물이다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> “자연유산”이란 동물ㆍ식물ㆍ지형ㆍ지질 등의 자연물을 말한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> “무형유산”이란 여러 세대에 걸쳐 전승되어 왔다.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal1" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ③입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal1')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 국가유산기본법 제3조 제3호<br> 3. “자연유산”이란 동물ㆍ식물ㆍ지형ㆍ지질 등의 자연물 또는 자연환경과의 상호작용으로 조성된 문화적 유산을
+                                    말한다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="2">
+                        <p>2. 국가유산기본법령상 국가유산진흥원의 수행 사업이 아닌 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 공연ㆍ전시 등 무형유산 활동 지원 및 진흥
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 남북한 간 국가유산 분야의 상호교류 및 협력 증진
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 국가유산 공적개발원조 등 국제교류
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 전통문화행사의 복원 및 재현
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal2" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ②입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal2')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 국가유산기본법 제32조 , 시행령 제2조 제1항 제6호 <br> 제2조(남북한 간 국가유산 교류 협력) ① 국가유산청장은 「국가유산기본법」(이하
+                                    “법”이라 한다) 제29조제1항에 따라 남북한 간 국가유산분야의 상호교류 및 협력을 증진하기 위하여 예산의 범위에서 다음 각 호의 사업에 필요한 경비를
+                                    지원할 수 있다.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="3">
+                        <p>3. 문화유산법령상 문화유산보호의 기본원칙에 관한 설명으로 옳은 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 문화유산의 보존을 기본원칙으로 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 문화유산의 보존ㆍ관리를 기본원칙으로 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 문화유산의 보존ㆍ관리 및 활용을 기본원칙으로 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 문화유산의 보존ㆍ관리 및 활용은 원형유지를 기본원칙으로 한다.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal3" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ④입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal3')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 문화유산의 보존 및 활용에 관한 법률 제3조 <br> (문화유산보호의 기본원칙) 문화유산의 보존ㆍ관리 및 활용은 원형유지를 기본원칙으로 한다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="4">
+                        <p>4. 문화유산법령상 문화유산기본계획에 포함된 사항이 아닌 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 문화유산 관련 시설 및 구역에서의 감염병 등에 대한 위생ㆍ방역
+                                관리에 관한 사항
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 문화유산 전문인력의 배치에 관한 사항
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 문화유산디지털콘텐츠에 관한 사항
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 문화유산교육에 관한 사항
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal4" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ②입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal4')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 문화유산의 보존 및 활용에 관한 법률 제7조 제1항 4호<br> 4. 제4조의2에 따른 전문인력의 배치에 관한 사항
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="5">
+                        <p>5. 문화유산법령상 지정문화유산의 금연구역 지정에 관한 설명으로 옳지 않은 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 국가유산청장 및 시․도지사는 지정문화유산의 경우 해당 시설 또는
+                                지역 전체를 금연구역으로 지정하여야 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 지정문화유산의 주거용 건축물은 소유자, 관리자 또는 관리단체가
+                                화재의 우려가 없는 경우에 한정하여 금연구역과 흡연구역을 구분하여 지정할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 지정문화유산의 금연구역과 흡연구역을 알리는 표지의 설치 기준 및
+                                방법 등은 문화
+                                체육관광부령 또는 시ㆍ도조례로 정한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 누구든지 지정문화유산의 금연구역에서 흡연을 하여서는 아니 된다.
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal5" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ①입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal5')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 문화유산의 보존 및 활용에 관한 법률 제14조의 4 제1항 <br> ① 지정문화유산 및 등록문화유산과 그 보호물ㆍ보호구역 및 보관시설(이하 이
+                                    조에서 “지정문화유산등”이라 한다)의 소유자, 관리자 또는 관리단체는 지정문화유산등 해당 시설 또는 지역 전체를 금연구역으로 지정하여야 한다. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="6">
+                        <p>6. 문화유산법령상 국가지정문화유산의 보호구역의 지정 및 조정에 관한 설명으로 옳은 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 국가유산청장은 보물 및 국보를 지정할 때에는 보호구역을
+                                지정하여야 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 보호구역 지정의 적정성을 검토할 때에는 보호구역의 주변환경을
+                                고려하여야 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 국가유산청장은 보호구역을 조정한 때에는 조정 후 매 5년이 되는
+                                날 이전에 그 조정의
+                                적정성을 검토하여야 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 자연적 조건의 변화는 보호구역을 조정할 수 있는 사유에 해당하지
+                                않는다.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal6" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ②입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal6')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 문화유산의 보존 및 활용에 관한 법률 제27조 제3항 제3호<br> ③ 국가유산청장은 제1항 및 제2항에 따라 보호물 또는 보호구역을 지정하거나
+                                    조정한 때에는 지정 또는 조정 후 매 10년이 되는 날 이전에 다음 각 호의 사항을 고려하여 그 지정 및 조정의 적정성을 검토하여야 한다. <br>
+                                    3. 보호물 또는 보호구역의 주변 환경</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="7">
+                        <p>7. 문화유산법령상 문화유산별 종합정비계획의 수립 시 가장 중점을 두어야 할 사항은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 문화유산의 원형 보존에 관한 사항
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 문화유산의 역사문화환경에 관한 사항
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 문화유산에 관한 고증 및 학술조사에 관한 사항
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 문화유산의 보수ㆍ복원 등 보존ㆍ관리 및 활용에 관한 사항
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal7" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ①입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal7')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 문화유산의 보존 및 활용에 관한 법률 시행령 제20조 제2항<br> ② 제1항에 따라 수립하는 정비계획은 문화유산의 원형을 보존하는 데 중점을
+                                    두어야 하며, 다음 각 호의 사항을 포함하여야 한다. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="8">
+                        <p>8. 문화유산법령상 국가유산청장의 허가를 받아야 하는 행위가 아닌 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 국가지정문화유산(보호물 및 보호구역을 포함한다)의 현상을
+                                변경하는 행위
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 국가지정문화유산(동산에 속하는 문화유산은 제외한다)의 보존에
+                                영향을 미칠 우려가 있는 행위
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 국가지정문화유산을 탁본 또는 영인(影印: 원본을 사진 등의
+                                방법으로 복제하는 것)하거나 그 보존에 영향을 미칠 우려가 있는 촬영 행위
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 국가유산청장이 문화유산의 특성을 고려하여 고시하는 건축물 또는
+                                시설물의 설치행위
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal8" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ④입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal8')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 문화유산의 보존 및 활용에 관한 법률 시행령 제21조의3 제2호 <br> 2. 법 제35조제1항제1호 및 이 영 제21조의2제1항의 행위 중
+                                    국가유산청장이 문화유산의 특성을 고려하여 고시하는 건축물 또는 시설물의 설치행위 </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="9">
+                        <p>9. 문화유산법령상 행정명령에 관한 설명으로 옳지 않은 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 국가유산청장이나 지방자치단체의 장은 국가지정문화유산의 보존,
+                                관리를 위하여 필요하
+                                다고 인정하면 국가지정문화유산의 소유자, 관리자 또는 관리단체에게 해당 문화유산의
+                                수리, 그 밖에 필요한 시설의 설치나 장애물의 제거를 명할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 수리 등 명령을 이행하여 손실을 받은 자에 대하여는 국가는 그
+                                손실을 보상하여야 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 국가유산청장은 문화유산 보존에 필요한 긴급한 조치 명령을
+                                소유자가 이행하지 아니하면 직접 조치를 할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 국가유산청장 또는 지방자치단체의 장은 소유자가 수리 등 명령을
+                                이행하지 아니하는 경우 「행정대집행법」에서 정하는 바에 따라 대집행하고, 그 비용을 징수할 수 있다.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal9" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ④입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal9')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 문화유산의 보존 및 활용에 관한 법률 제42조 (행정명령) 제3항 <br> ③ 국가유산청장 또는 지방자치단체의 장은 제1항제4호에 따른 명령을
+                                    받은 자가 명령을 이행하지 아니하는 경우 「행정대집행법」에서 정하는 바에 따라 대집행하고, 그 비용을 명령 위반자로부터 징수할 수 있다. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="10">
+                        <p>10. 문화유산법령상 문화유산매매업자의 행위 중 과태료 부과 대상이 아닌 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 문화유산매매업자가 문화유산의 보존 상황, 매매 또는 교환의
+                                실태를 신고하지 않은 경우
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 문화유산매매업자가 해마다 받아야 하는 매매ㆍ교환 등에 관한 장부
+                                검인을 받지 않은 경우
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 문화유산매매업자가 허가증을 다른 자에게 빌려주는 경우
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 문화유산매매업자가 폐업신고서를 제출하지 않은 경우
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal10" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ③입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal10')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 문화유산의 보존 및 활용에 관한 법률 제101조의2<br> 제77조의2를 위반하여 다른 자에게 자기의 명의 또는 상호를 사용하여 문화유산매매업을
+                                    하게 하거나 그 허가증을 다른 자에게 빌려 준 자는 1년 이하의 징역이나 1천만원 이하의 벌금에 처한다. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="11">
+                        <p>11. 자연유산법령상 자연유산 보호계획에 관한 설명이다. 옳지 않은 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 자연유산 보호계획은 국가유산의 유형에 따른 기본계획에 부합하여야
+                                한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 국가유산청장은 보호계획의 효율적 수립, 변경을 위하여
+                                관계전문가로 구성된 자문단을 운영할 수 있다
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 국가유산청장은 보호계획을 수립하는 경우 소유자등 및 관계
+                                전문가에게 의견과 자료를 제출하도록 요청할 수 있다
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 국가유산청장은 수립한 보호계획을 시ㆍ도지사에게 통지하고,
+                                관보(官報) 등에 고시하여야 한다.
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal11" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ③입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal11')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 자연유산의 보존 및 활용에 관한 법률 제6조 제3항<br> ③ 국가유산청장은 보호계획을 수립하는 경우 대통령령으로 정하는 소유자등 및 관계
+                                    전문가의 의견을 들어야 한다. 수립된 보호계획 중 대통령령으로 정하는 중요한 사항을 변경할 때에도 또한 같다. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="12">
+                        <p>12. 자연유산법령상 국립자연유산원의 수행사업이 아닌 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 자연유산 표본 박제 및 보존
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 자연유산 및 관련 서식환경 등에 대한 정기조사
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 자연유산 유전자원의 수집ㆍ보존 및 관리
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 자연유산 관련 국제 교류 및 남북 협력
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal12" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ②입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal12')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 자연유산의 보존 및 활용에 관한 법률 제47조 제3항 <br> ③ 국립자연유산원은 설립목적을 달성하기 위하여 다음 각 호의 사업을 수행한다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="13">
+                        <p>13. 무형유산법령상 무형유산의 진흥에 관한 설명 중 옳지 않은 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 국가유산청장은 무형유산 중 공예, 미술 등에 관한 전통기술의
+                                진흥을 위하여 원재료, 제작공정 등의 기술개발 및 디자인ㆍ상품화 등에 필요한 지원을 할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 국가유산청장은 전통기술의 전승 활성화 및 전통공예의 우수성 홍보
+                                등을 위하여 전승공예품은행을 운영할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 국가와 지방자치단체는 무형유산 전승자의 창업ㆍ제작ㆍ유통 및
+                                해외시장의 진출 등을 촉진하기 위하여 필요한 지원을 할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 국가유산청장은 무형유산의 진흥에 관한 사업과 활동을 효율적으로
+                                지원하기 위하여 국가유산청에 한국무형유산진흥센터를 둔다.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal13" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ④입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal13')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 무형유산의 보전 및 진흥에 관한 법률 제46조 <br> 국가유산청장은 무형유산의 진흥에 관한 사업과 활동을 효율적으로 지원하기 위하여
+                                    「국가유산기본법」 제32조에 따른 국가유산진흥원에 한국무형유산진흥센터를 둔다. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="question" data-question="14">
+                        <p>14. 근현대문화유산법령상 예비문화유산의 선정 및 관리에 관한 설명으로 옳지 않은 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 국가유산청장은 근현대문화유산 중 건설ㆍ제작ㆍ형성된 지 50년이
+                                지나지 아니한 것에 대하여 장래 등록문화유산이 될 가능성이 높다고 판단되는 경우 예비문화유산으로 선정할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 예비문화유산은 위원회의 심의 및 소유자의 동의를 받아 선정한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 예비문화유산은 국가적 또는 지역적 정체성 형성에 기여하고 있거나
+                                기여할 것으로 기대되는 것이어야 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 예비문화유산의 소유자, 관리자는 그 예비문화유산이 멸실 위험이
+                                있거나 보존에 중대한 어려움이 있는 경우 그 선정의 취소를 요청할 수 있다.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 2 -->
+                    <div id="answerModal14" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ④입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal14')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 근현대문화유산의 보존 및 활용에 관한 법률 제48조 <br> 예비문화유산의 소유자, 관리자 또는 예비문화유산 관리단체는 그 예비문화유산이 멸실
+                                    위험이 있거나 보존에 중대한 어려움이 있는 경우 국가유산청장에게 관리자ㆍ관리단체의 선정ㆍ변경 및 관리의 위탁을 요청할 수 있다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="15">
+                        <p>15. 국가유산수리법령상 국가유산수리에 관한 설명으로 옳지 않은 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> “국가유산수리”란 국가유산의 보수ㆍ복원ㆍ정비 및 손상 방지를
+                                위한 조치를 말한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 국가유산수리는 「문화유산의 보존 및 활용에 관한 법률」에 따른
+                                지정문화유산 및 「자연유산의 보존 및 활용에 관한 법률」에 따른 천연기념물등을 대상으로 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 국가유산수리 대상에는 문화유산법에 따른 임시지정문화유산,
+                                자연유산법에 따른 임시지정천연기념물 또는 임시지정명승을 포함한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 국가유산수리 대상에는 근현대문화유산법에 따른 국가등록문화유산,
+                                시.도등록문화유산을 포함한다.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal15" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ④입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal15')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 국가유산수리 등에 관한 법률 제2조 제1호<br> 1. “국가유산수리”란 다음 각 목의 어느 하나에 해당하는 것의 보수ㆍ복원ㆍ정비 및 손상
+                                    방지를 위한 조치를 말한다. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="16">
+                        <p>16. 국가유산수리법령상 국가유산수리기술자의 결격사유에 해당하지 않은 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 18세 미만인 사람
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 피성년후견인 또는 피한정후견인
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 「건축사법」(실측설계 도서의 작성업무를 하는 사람만 해당한다)
+                                또는 이 법을 위반하여 금고 이상의 실형을 선고받고 그 집행이 끝나거나 집행이 면제된 날부터 3년이 지나지 아니한 사람
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 미성년자에 해당하여 국가유산수리기술자의 자격이 취소된 날부터
+                                3년이 지나지 아니한 사람
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal16" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ④입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal16')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 국가유산수리 등에 관한 법률 제9조 제5호<br> 5. 제47조에 따라 국가유산수리기술자의 자격이 취소된 날부터 3년이 지나지 아니한
+                                    사람(제9조제1호 및 제2호에 해당하여 자격이 취소된 사람은 제외한다)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="17">
+                        <p>17. 국가유산수리법령상 하도급계약의 적정성 심사 등에 관한 설명으로 옳지 않은 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 발주자는 국가유산수리의 규모와 전문성 등을 고려할 때 하수급인의
+                                국가유산수리 능력이 현저히 부족하다고 인정되는 경우 그 적정성을 심사할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 발주자는 하도급계약 금액이 도급금액 중 하도급부분에 상당하는 금액의 100분의 70에
+                                미달하는 경우 그 적정성을 심사할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 발주자는 심사 결과 하수급인의 국가유산수리 능력 또는 하도급계약
+                                내용이 적정하지 아니하다고 인정되는 경우에는 그 사유를 분명하게 밝혀 수급인에게 하수급인 또는 하도급계약 내용의 변경을 요구할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 발주자는 수급인이 정당한 이유 없이 변경 요구에 따르지 아니하여
+                                국가유산수리 결과에 중대한 영향을 미칠 우려가 있는 경우에는 해당 국가유산수리의 도급계약을 해지할 수 있다.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal17" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ②입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal17')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 국가유산수리 등에 관한 법률 시행령 제16조의2 제1항 제1호 <br> 1. 하도급계약 금액이 도급금액 중 하도급부분에 상당하는
+                                    금액[하도급하려는 국가유산수리 부분에 대하여 수급인의 도급금액 산출내역서의 계약단가(직접ㆍ간접 노무비, 재료비 및 경비를 포함한다)를 기준으로 산출한
+                                    금액에 일반관리비, 이윤 및 부가가치세를 포함한 금액을 말하며, 수급인이 하수급인에게 직접 지급하는 자재의 비용과 관계 법령에 따라 수급인이 부담하는
+                                    금액은 제외한다]의 100분의 82에 미달하는 경우</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="18">
+                        <p>18. 국가유산수리법령상 국가유산청장이 발주자의 설계승인 신청을 받은 경우에 종합적으로 심사하여야 하는 사항에 해당하지 않은 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 국가유산의 원형을 보존하기 위한 적합한 방법과 기술을 사용하였을
+                                것
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 전통적 기술과 원래의 재료를 사용하였을 것
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 전통적 기술이나 원래의 재료를 사용하지 아니하는 경우 구체적
+                                구조보강 방법을 설계에 반영하였을 것
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 해당 국가유산의 지역적 특성을 고려하였을 것
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal18" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ③입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal18')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 국가유산수리 등에 관한 법률 제33조의2 제3항 <br>③ 국가유산청장은 제2항에 따라 발주자의 설계승인 신청을 받은 경우에는 다음 각 호의
+                                    사항을 종합적으로 심사하여야 한다. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="19">
+                        <p>19. 국가유산수리법령상 국가유산감리원의 배치에 관한 설명으로 옳지 않은 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 일반감리의 경우 국가유산수리의 종류에 해당하는 국가유산감리원을
+                                배치할 것
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 책임감리의 경우 국가유산수리의 종류에 해당하는 국가유산감리원을
+                                국가유산수리 기간 동안 1명 이상 계속하여 배치할 것
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 일반감리의 경우 1명의 비상주국가유산감리원은 3개 이하의
+                                국가유산수리 현장에 배치할 것
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 책임감리의 경우 감리를 하는 기간 동안에는 해당 국가유산감리원을
+                                다른 국가유산수리 현장에 중복하여 배치하지 아니할 것
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal19" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ③입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal19')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 국가유산수리 등에 관한 법률 시행령 제22조 제1항 제4호 <br> 4. 1명의 비상주국가유산감리원은 5개 이하의 국가유산수리 현장에 배치할
+                                    것. 다만, 제20조제1항제3호에 해당하는 경우로서 국가유산수리 예정금액의 합이 3억원 미만이고, 동일한 시(특별시, 광역시 및 특별자치시를
+                                    포함한다)ㆍ군에서 국가유산수리가 행하여지는 때에는 이를 1개의 국가유산수리 현장으로 본다. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="20">
+                        <p>20. 국가유산수리법령상 국가유산수리업자의 그 등록을 반드시 취소하여야 하는 경우에 해당하지 않는 것은?
+                        </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 거짓이나 그 밖의 부정한 방법으로 등록한 경우
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 부정한 청탁을 받고 재물 또는 재산상의 이익을 취득하거나 부정한
+                                청탁을 하면서 재물 또는 재산상의 이익을 제공한 경우
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 영업정지 기간 중에 영업을 한 경우
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 국가유산수리업자등이 「부가가치세법」 제8조제8항에 따라 사업장
+                                관할 세무서장에게 폐업 신고를 한 경우
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal20" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ②입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal20')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 국가유산수리 등에 관한 법률 제49조 제1항 <br> ① 시ㆍ도지사는 제14조제1항에 따라 등록한 국가유산수리업자등이 다음 각 호의 어느 하나에
+                                    해당하면 그 등록을 취소하거나 문화체육관광부령으로 정하는 바에 따라 3년 이내의 기간을 정하여 그 영업의 정지를 명할 수 있다. 다만,
+                                    제1호ㆍ제3호ㆍ제4호의2ㆍ제5호 또는 제19호에 해당하는 경우에는 그 등록을 취소하여야 한다. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="21">
+                        <p>21. 국가유산수리법령상 1년 이하의 징역 또는 1천만원 이하의 벌금에 처해지는 행위를 한 사람에 해당하지 않는 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 국가유산수리기술자가 둘 이상의 국가유산수리업자 등에 중복하여
+                                취업한 자
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 자격증을 대여하거나 대여받은 자 또는 이를 알선한 자
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 다른 국가유산수리업자 등의 성명 또는 상호를 사용하거나 등록증
+                                또는 등록수첩을 대여받아 사용한 자
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 국가유산수리와 감리를 함께 한 자
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal21" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ②입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal21')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 국가유산수리 등에 관한 법률 제59조 <br> (벌칙) 다음 각 호의 어느 하나에 해당하는 자는 1년 이하의 징역 또는 1천만원 이하의 벌금에
+                                    처한다. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="22">
+                        <p>22. 매장유산법령상 매장유산 유존지역의 보호에 관한 설명으로 옳지 않는 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 매장유산 유존지역이란 매장유산이 존재하는 것으로 인정되는 지역을
+                                말한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 매장유산 유존지역은 원형이 훼손되지 아니하도록 보호되어야 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 누구든지 매장유산법령에 반하여 매장유산 유존지역을
+                                조사ㆍ발굴하여서는 아니 된다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 매장유산이 발견 신고된 지역은 매장유산 유존지역으로 보호된다.
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal22" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ④입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal22')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 매장유산 보호 및 조사에 관한 법률 시행령 제3조 제1항 제4호 <br> 4. 법 제17조에 따른 발견신고 및 확인절차를 거쳐서 매장유산이
+                                    존재하는 것으로 인정된 지역</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="23">
+                        <p>23. 매장유산법령상 매장유산의 발굴허가 등에 관한 설명으로 옳지 않는 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 유적(遺蹟)의 정비사업을 목적으로 발굴하는 경우 국가유산청장의
+                                허가를 받은 때에는 발굴할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 발굴기간이 300일 이상인 경우에는 문화유산위원회 또는
+                                자연유산위원회의 심의를 반드시 거쳐야 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 국가유산청장은 학술적으로 중요한 유물ㆍ유구가 출토되는 경우
+                                기간을 명시하여 발굴의 정지나 중지를 명할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 국가유산청장은 발굴허가를 받은 건설공사의 시행자가 그 허가 내용
+                                및 발굴 시 준수하도록 한 사항 등 지시사항을 위반한 경우 그 허가를 취소할 수 있다.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal23" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ②입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal23')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 매장유산 보호 및 조사에 관한 법률 시행령 제8조 제1항 제3호 <br> ① 국가유산청장은 법 제11조제1항 각 호에 따른 사업으로서 다음 각
+                                    호의 어느 하나에 해당하는 사업에 대해서는 문화유산위원회 또는 자연유산위원회의 심의를 거친 후에 발굴허가 여부를 결정하여야 한다.<br>
+                                    3. 발굴기간이 200일 이상인 사업</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="24">
+                        <p>24. 고도육성법령상 토지ㆍ건물 등에 관한 매수 청구에 관한 설명으로 옳지 않는 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 지정지구에서의 행위제한으로 허가를 받지 못하여 본래의 용도로
+                                이용할 수 없게 된 자는 사업시행자에게 토지ㆍ건물 등의 매수를 청구할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 매수를 청구하려는 자는 불허가 통지를 받은 날부터 60일 이내에
+                                문화체육관광부령으로 정하는 바에 따라 매수 청구 신청서를 사업시행자에게 제출하여야 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 사업시행자는 매수 청구를 받으면 청구를 받은 날부터 60일
+                                이내에 매수 대상 여부와 매수 예상가격 등을 매수 청구자에게 통보하여야 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 사업시행자는 매수를 통보한 날부터 1년 이내에 매수 청구를 받은
+                                토지ㆍ건물 등을 매수하여야 한다.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal24" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ④입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal24')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 고도 보존 및 육성에 관한 특별법 시행령 제22조 제2항 <br> ② 사업시행자는 제1항에 따른 매수 청구를 받으면 청구를 받은 날부터 60일
+                                    이내에 매수 대상 여부와 매수 예상가격 등을 매수 청구자에게 통보하여야 하며, 매수를 통보한 날부터 5년 이내에 매수 청구를 받은 토지ㆍ건물 등을
+                                    매수하여야 한다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question" data-question="25">
+                        <p>25. 문화유산신탁법령상 국민신탁단체에 관한 설명으로 옳지 않는 것은? </p>
+                        <div class="choices">
+                            <div class="choice">
+                                <span class="choice-button" data-choice="1">①</span> 해당중앙행정기관의 장은 문화유산 또는 자연환경자산을 취득하여
+                                보전ㆍ관리하고 이를 공익용 목적으로 사용ㆍ수익하는 비영리법인을 문화유산국민신탁단체 또는 자연환경국민신탁단체(이하 “국민신탁단체”라 한다)로 지정할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="2">②</span> 국민신탁단체는 보전재산 및 일반재산을 신의에 따라 성실하게
+                                보전ㆍ운용하여야 한다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="3">③</span> 해당중앙행정기관의 장은 국민신탁단체의 수행 업무가 그 지정
+                                목적을 벗어난 것으로 인정되는 경우 그 지정을 취소할 수 있다.
+                            </div>
+                            <div class="choice">
+                                <span class="choice-button" data-choice="4">④</span> 국가 및 지방자치단체는 국민신탁단체에 대하여 예산의 범위 안에서
+                                보전재산의 보전ㆍ관리에 직접 소요되는 경비의 일부 또는 전부를 보조할 수 있다.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 1 -->
+                    <div id="answerModal25" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>정답은 ④입니다!</span>
+                                <button class="confirm-button" onclick="closeModal('answerModal25')">닫기</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>법조문: 문화유산과 자연환경자산에 관한 국민신탁법 제16조 <br> 국가 및 지방자치단체는 국민신탁법인 또는 국민신탁법인과 제19조의 규정에 따른
+                                    보전협약을 체결한 법인ㆍ단체에 대하여 예산의 범위 안에서 보전재산의 보전ㆍ관리에 직접 소요되는 경비의 일부를 보조할 수 있다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 답안지 영역 -->
+            <div class="answer-sheet">
+                <div class="timer-container">
+                    <div class="timer-left">
+                        <button id="startButton" class="timer-button">시험 시작</button>
+                        <button id="stopButton" class="timer-button">종료</button>
+                    </div>
+                    <div class="timer-right">
+                        <div id="timerDisplay" class="timer-display">20:00</div>
+                    </div>
+                </div>
+
+                <h4>답안지</h4>
+                <!-- 26칸 생성 -->
+                <div class="answer-box" data-answer="1">
+                    <span class="question-number">1</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal1')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="2">
+                    <span class="question-number">2</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal2')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="3">
+                    <span class="question-number">3</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal3')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="4">
+                    <span class="question-number">4</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal4')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="5">
+                    <span class="question-number">5</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal5')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="6">
+                    <span class="question-number">6</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal6')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="7">
+                    <span class="question-number">7</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal7')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="8">
+                    <span class="question-number">8</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal8')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="9">
+                    <span class="question-number">9</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal9')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="10">
+                    <span class="question-number">10</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal10')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="11">
+                    <span class="question-number">11</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal11')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="12">
+                    <span class="question-number">12</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal12')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="13">
+                    <span class="question-number">13</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal13')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="14">
+                    <span class="question-number">14</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal14')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="15">
+                    <span class="question-number">15</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal15')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="16">
+                    <span class="question-number">16</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal16')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="17">
+                    <span class="question-number">17</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal17')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="18">
+                    <span class="question-number">18</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal18')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="19">
+                    <span class="question-number">19</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal19')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="20">
+                    <span class="question-number">20</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal20')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="21">
+                    <span class="question-number">21</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal21')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="22">
+                    <span class="question-number">22</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal22')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="23">
+                    <span class="question-number">23</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal23')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="24">
+                    <span class="question-number">24</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal24')">확인</button>
+                </div>
+                <div class="answer-box" data-answer="25">
+                    <span class="question-number">25</span>
+                    <span class="circle-number" data-choice="1">①</span>
+                    <span class="circle-number" data-choice="2">②</span>
+                    <span class="circle-number" data-choice="3">③</span>
+                    <span class="circle-number" data-choice="4">④</span>
+                    <button class="confirm-button" onclick="openAnswerModal('answerModal25')">확인</button>
+                </div>
+                <!-- 점수판 -->
+                <div id="scorePanel" style="display: none;">
+                    <div
+                        style="border: 1px solid #000; width: 4.5cm; height: 2.5cm; text-align: center; padding: 10px; margin-top: 20px;">
+                        <div style="border-bottom: 1px solid #000; padding-bottom: 5px; margin-bottom: 5px;">
+                            총점: <span id="totalScore">0</span>
+                        </div>
+                        <div>
+                            정답 수: (<span id="correctCount">0</span>) x 4
+                        </div>
+                    </div>
+                    <!-- "홈페이지" 버튼 -->
+                    <div id="homepageButtonContainer" style="text-align: center; margin-top: 10px;">
+                        <a href="https://blog.naver.com/lhj5268" id="homepageButton">홈페이지</a>
+                    </div>
+                </div>
+
+                <!-- 애니메이션 -->
+                <div id="clapAnimation" style="display: none; font-size: 2rem; text-align: center; margin-top: 10px;">
+                    👏👏👏 짝 짝 짜 짝짝 !!<br> 짝 짝 짜 짝짝!!!<br>대한민국 ! 🎉"
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const correctAnswers = {
+                1: 3,
+                2: 2,
+                3: 4,
+                4: 2,
+                5: 1,
+                6: 2,
+                7: 1,
+                8: 4,
+                9: 4,
+                10: 3,
+                11: 3,
+                12: 2,
+                13: 4,
+                14: 4,
+                15: 4,
+                16: 4,
+                17: 2,
+                18: 3,
+                19: 3,
+                20: 2,
+                21: 2,
+                22: 4,
+                23: 2,
+                24: 4,
+                25: 4,
+            };
+            const totalQuestions = 25;
+            let correctCount = 0;
+
+            // 문제 선택 시 연동 및 점수 계산 조건 확인
+            document.querySelectorAll('.choice-button').forEach(button => {
+                button.addEventListener('click', function () {
+                    const questionElement = this.closest('.question');
+                    const questionNumber = parseInt(questionElement.dataset.question);
+                    const choiceNumber = parseInt(this.dataset.choice);
+
+                    // 선택된 문제 상태 처리
+                    questionElement.querySelectorAll('.choice-button').forEach(choice => {
+                        choice.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+
+                    // 답안지와 연동
+                    const answerBox = document.querySelector(`.answer-box[data-answer="${questionNumber}"]`);
+                    if (answerBox) {
+                        answerBox.querySelectorAll('.circle-number').forEach(circle => {
+                            circle.classList.remove('selected', 'correct', 'incorrect');
+                        });
+
+                        const selectedCircle = answerBox.querySelector(`.circle-number[data-choice="${choiceNumber}"]`);
+                        if (selectedCircle) {
+                            selectedCircle.classList.add('selected');
+
+                            if (correctAnswers[questionNumber] === choiceNumber) {
+                                selectedCircle.classList.add('correct');
+                                correctCount++;
+                            } else {
+                                selectedCircle.classList.add('incorrect');
+                            }
+                        }
+                    }
+
+                    // 모든 문제 선택 시 점수 계산
+                    const selectedButtons = document.querySelectorAll('.choice-button.selected');
+                    if (selectedButtons.length === totalQuestions) {
+                        calculateScore();
+                    }
+                });
+            });
+
+            // 점수 계산 및 결과 표시
+            function calculateScore() {
+                const selectedButtons = document.querySelectorAll('.choice-button.selected');
+                const scorePanel = document.getElementById("scorePanel");
+
+                if (selectedButtons.length !== totalQuestions) {
+                    scorePanel.innerHTML = "모든 문제를 푸셔야 점수가 계산됩니다!";
+                    scorePanel.style.display = "block";
+                    return;
+                }
+
+                const score = correctCount * 4;
+                document.getElementById("totalScore").innerText = score;
+                document.getElementById("correctCount").innerText = correctCount;
+
+                scorePanel.style.display = "block";
+
+                if (score >= 92) {
+                    const clapAnimation = document.getElementById("clapAnimation");
+                    clapAnimation.innerHTML = "👏👏👏 짝짝 짜 자 작 !<br> 짝짝 짜 자 작!!<br>대한민국 !!! <Br> 짝짝짝 짝짝짝 🎉";
+
+                    clapAnimation.style.display = "block";
+
+                    // 텍스트와 배경색 애니메이션
+                    clapAnimation.style.animation = "highlight 2s infinite, bgColorChange 5s infinite";
+
+                    // 폭죽 효과를 3회 실행
+                    let fireworkCount = 0; // 폭죽 실행 횟수
+                    const fireworkInterval = setInterval(() => {
+                        confetti({
+                            particleCount: 200, // 폭죽의 양 증가
+                            spread: 120, // 퍼지는 범위
+                            origin: { y: 0.6 }, // 폭죽 시작 위치
+                            colors: ['#ff0', '#f0f', '#0ff'], // 폭죽 색상
+                        });
+
+                        fireworkCount++;
+                        if (fireworkCount === 3) { // 3회 실행 후 중지
+                            clearInterval(fireworkInterval);
+                        }
+                    }, 5000); // 1초 간격으로 실행                   
+
+                    setTimeout(() => {
+                        clapAnimation.style.display = "none";
+                    }, 60000); // 60초 후 숨김
+                }
+            }
+        });
+
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let timerInterval;
+            let remainingTime = 1200; // 20분 = 1200초
+
+            const startButton = document.getElementById("startTimer");
+            const stopButton = document.getElementById("stopTimer");
+            const timerDisplay = document.getElementById("timer");
+
+            function updateTimerDisplay() {
+                const minutes = Math.floor(remainingTime / 60);
+                const seconds = remainingTime % 60;
+                timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            }
+
+            function startTimer() {
+                if (timerInterval) return; // 이미 타이머가 동작 중인 경우 무시
+
+                timerInterval = setInterval(() => {
+                    remainingTime--;
+                    updateTimerDisplay();
+
+                    if (remainingTime <= 0) {
+                        clearInterval(timerInterval);
+                        alert("시험 시간이 종료되었습니다.");
+                    }
+                }, 1000); // 1초마다 감소
+            }
+
+            function stopTimer() {
+                clearInterval(timerInterval);
+                timerInterval = null; // 타이머 초기화
+            }
+
+            startButton.addEventListener("click", startTimer);
+            stopButton.addEventListener("click", stopTimer);
+
+            // 페이지 종료 시 타이머도 종료
+            window.addEventListener("beforeunload", () => {
+                stopTimer();
+            });
+
+            updateTimerDisplay(); // 초기 타이머 디스플레이 설정
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const startButton = document.getElementById("startButton");
+            const stopButton = document.getElementById("stopButton");
+            const timerDisplay = document.getElementById("timerDisplay");
+
+            let timer;
+            let timeRemaining = 20 * 60; // 20분 (초 단위)
+
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+
+            startButton.addEventListener("click", function () {
+                if (timer) return; // 이미 타이머가 실행 중이면 무시
+                timer = setInterval(() => {
+                    if (timeRemaining > 0) {
+                        timeRemaining--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timer);
+                        timer = null;
+                        alert("시험 시간이 종료되었습니다!");
+                    }
+                }, 1000);
+            });
+
+            stopButton.addEventListener("click", function () {
+                if (timer) {
+                    clearInterval(timer);
+                    timer = null;
+                }
+                alert(`시험이 종료되었습니다! 경과 시간: ${20 - Math.floor(timeRemaining / 60)}분`);
+            });
+
+            // 초기 타이머 디스플레이 설정
+            updateTimerDisplay();
+        });
+
+    </script>
+
+</body>
+
+</html>
